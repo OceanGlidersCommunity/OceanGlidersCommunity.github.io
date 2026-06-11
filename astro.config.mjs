@@ -1,7 +1,7 @@
 import { defineConfig } from 'astro/config';
- import tailwind from '@astrojs/tailwind';
+import tailwind from '@astrojs/tailwind';
 
- export default defineConfig({  
+export default defineConfig({  
    integrations: [tailwind()],
    site: 'https://mariarita-caracciolo.github.io',
    base: '/oceangliders_.github.io',
