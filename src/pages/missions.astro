@@ -1,0 +1,116 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Section from '@/components/Section.astro';
+
+const b = import.meta.env.BASE_URL;
+const base = b.endsWith('/') ? b : b + '/';
+
+const missions = [
+  {
+    id: 'boon',
+    acronym: 'BOON',
+    title: 'Boundary Ocean Observing Network',
+    leads: 'Robert Todd (WHOI), co-lead (institution)',
+    icon: `<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>`,
+    body: `Humanity interacts with the ocean most directly along its margins. The OceanGliders Boundary Ocean Observing Network (BOON) provides in situ observations of key physical, biogeochemical, and ecosystem properties in waters along ocean margins, typically within the Exclusive Economic Zones of coastal states. Autonomous underwater gliders return measurements that have the necessary high spatial resolution to capture small-scale features along ocean margins. Fleets of gliders sample persistently over years to capture seasonal to interannual changes in ocean conditions as well as discrete events (e.g., storms and heat waves). Within the Global Ocean Observing System, BOON plays a vital role in bridging the gap between shore-based measurements and the basin-scale, deep-ocean measurements from other observing platforms by spanning the coastal, continental shelf, and continental slope regions.`,
+  },
+  {
+    id: 'flood',
+    acronym: 'FLOOD',
+    title: 'Fine-scale and Lateral Observations of Open Ocean Dynamics',
+    leads: 'co-lead (institution), Filipa Carvalho (NOC)',
+    icon: `<circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>`,
+    body: `FLOOD delivers high-resolution, long-duration observations of open ocean fronts, eddies, and water-mass transformation regions, bridging the spatial and temporal scales between ships, floats, and moorings. Their endurance and mobility enable adaptive sampling of dynamic and evolving features, resolving sub-daily and kilometre-scale variability that other GOOS platforms cannot capture at a global scale. Growing from targeted scientific campaigns into a sustained, autonomous observing network, FLOOD is increasingly positioned to meet the environmental monitoring requirements of international frameworks such as the BBNJ Agreement/High Seas Treaty. Operating in coordination with other GOOS platforms, FLOOD observations provide the continuous, four-dimensional context needed to connect local processes to basin-scale and climate-relevant patterns.`,
+  },
+  {
+    id: 'polar',
+    acronym: 'POLAR',
+    title: 'Polar',
+    leads: 'Naomi Krauzig (GEOMAR), co-lead (institution)',
+    icon: `<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>`,
+    body: `Polar oceans are central to Earth's climate system yet remain among the least accessible regions for sustained observation, where extreme conditions, sea-ice cover, and limited infrastructure demand specialised approaches. Polar gliders actively navigate beneath ice, follow ice edges and polynyas, and reach shallow continental shelves and fjords that other autonomous platforms cannot access. This targeted mobility enables high-resolution transects of physical, biogeochemical, and ecosystem processes at the margins of sea ice — resolving ocean-ice interactions, basal melting, and heat and freshwater fluxes that drive sea level rise and represent key uncertainties in current climate projections. Delivering these observations requires continued technological innovation, strong international collaboration, and dedicated capacity building to ensure equitable access, with the Polar mission integrating distributed Arctic and Southern Ocean efforts to systematically capture critical high-latitude processes within the global GOOS framework.`,
+  },
+];
+---
+
+<Layout
+  title="Missions"
+  description="OceanGliders is structured around three permanent missions: BOON, FLOOD, and Polar."
+>
+  <!-- Hero -->
+  <div class="relative bg-ocean-primary text-white overflow-hidden">
+    <div
+      class="absolute inset-0 opacity-5"
+      style="background-image: linear-gradient(#2f9dc0 1px, transparent 1px), linear-gradient(90deg, #2f9dc0 1px, transparent 1px); background-size: 60px 60px;"
+    ></div>
+    <div class="relative max-w-6xl mx-auto px-6 py-24 md:py-36">
+      <p class="text-ocean-secondary text-xs font-semibold uppercase tracking-widest mb-4">OceanGliders</p>
+      <h1 class="text-3xl md:text-5xl font-semibold leading-tight mb-6 max-w-3xl">
+        Three Missions, One <span class="text-ocean-secondary">Global Observing System</span>
+      </h1>
+      <p class="text-white/70 text-lg max-w-xl leading-relaxed">
+        OceanGliders is structured around three permanent missions, each targeting a distinct operational environment 
+        and connected as coordinated contributions to the GOOS.
+      </p>
+    </div>
+    <div class="absolute bottom-0 left-0 right-0 h-12 bg-ocean-surface" style="clip-path: ellipse(55% 100% at 50% 100%);"></div>
+  </div>
+
+  <!-- Mission nav anchors -->
+  <div class="bg-white border-b border-ocean-light/40 sticky top-0 z-10">
+    <div class="max-w-6xl mx-auto px-6 flex gap-8 overflow-x-auto">
+      {missions.map(m => (
+        
+          href={`#${m.id}`}
+          class="text-sm font-semibold text-ocean-primary/60 hover:text-ocean-secondary border-b-2 border-transparent hover:border-ocean-secondary py-4 whitespace-nowrap transition-colors duration-150"
+        >
+          {m.acronym}
+        </a>
+      ))}
+    </div>
+  </div>
+
+  <!-- Mission sections -->
+  {missions.map((m, i) => (
+    <Section dark={i % 2 !== 0}>
+      <div id={m.id} class="scroll-mt-16 max-w-3xl">
+        <!-- Eyebrow + icon -->
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-10 h-10 rounded-lg bg-ocean-secondary/10 flex items-center justify-center flex-shrink-0">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2f9dc0" stroke-width="2">
+              <Fragment set:html={m.icon} />
+            </svg>
+          </div>
+          <p class={`text-xs font-semibold uppercase tracking-widest ${i % 2 !== 0 ? 'text-ocean-secondary' : 'text-ocean-secondary'}`}>
+            {m.acronym}
+          </p>
+        </div>
+
+        <h2 class={`text-2xl md:text-3xl font-semibold leading-snug mb-3 ${i % 2 !== 0 ? 'text-white' : 'text-ocean-primary'}`}>
+          {m.title}
+        </h2>
+
+        <!-- Leads -->
+        <p class={`text-sm font-medium mb-6 ${i % 2 !== 0 ? 'text-ocean-secondary' : 'text-ocean-secondary'}`}>
+          Leads: {m.leads}
+        </p>
+
+        <!-- Body -->
+        <p class={`leading-relaxed text-base ${i % 2 !== 0 ? 'text-white/70' : 'text-ocean-primary/70'}`}>
+          {m.body}
+        </p>
+      </div>
+    </Section>
+  ))}
+
+  <!-- CTA -->
+  <Section dark>
+    <div class="text-center max-w-2xl mx-auto">
+      <h2 class="text-3xl font-semibold text-white mb-4">Get Involved</h2>
+      <p class="text-white/60 mb-8 leading-relaxed">
+        Interested in contributing to one of the missions? We'd love to hear from you.
+      </p>
+      <a href={`${base}contact/`} class="btn-outline inline-block">Contact Us</a>
+    </div>
+  </Section>
+</Layout>
